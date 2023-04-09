@@ -1,0 +1,37 @@
+
+{
+    "teste":{
+        "cellbit":["keyword","fsdfd","dad","afsdadfas","dsfsdf"],
+        "ghile":["keyword","fsdfd","dad","afsdadfas","dsfsdf"],
+        "viscoito":["keyword","fsdfd","dad","afsdadfas","dsfsdf"]
+    },
+    "teste2":{
+        "cellbit":["keyword","fsdfd","dad","afsdadfas","dsfsdf"],
+        "ghile":["keyword","fsdfd","dad","afsdadfas","dsfsdf"],
+        "viscoito":["keyword","fsdfd","dad","afsdadfas","dsfsdf"]
+    },
+    "teste3":{
+        "cellbit":["keyword","fsdfd","dad","afsdadfas","dsfsdf"],
+        "ghile":["keyword","fsdfd","dad","afsdadfas","dsfsdf"],
+        "viscoito":["keyword","fsdfd","dad","afsdadfas","dsfsdf"]
+    },
+    "teste4":{
+        "cellbit":["keyword","fsdfd","dad","afsdadfas","dsfsdf"],
+        "ghile":["keyword","fsdfd","dad","afsdadfas","dsfsdf"],
+        "viscoito":["keyword","fsdfd","dad","afsdadfas","dsfsdf"]
+    }
+}
+{
+    "canal1": {
+      "usuario1": ["palavra-chave1", "palavra-chave2"],
+      "usuario2": ["palavra-chave3", "palavra-chave4"],
+    
+    },
+    "canal2": {
+      "usuario3": ["palavra-chave5", "palavra-chave6"],
+      "usuario4": ["palavra-chave7", "palavra-chave8"],
+      
+    }
+    
+  }
+  
