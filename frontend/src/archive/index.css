@@ -1,0 +1,166 @@
+/* noto-emoji-700 - emoji */
+@font-face {
+  font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Noto Emoji';
+  font-style: normal;
+  font-weight: 700;
+  src: url('fonts/noto-emoji-v39-emoji-700.eot'); /* IE9 Compat Modes */
+  src: url('fonts/noto-emoji-v39-emoji-700.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('fonts/noto-emoji-v39-emoji-700.woff2') format('woff2'), /* Super Modern Browsers */
+       url('fonts/noto-emoji-v39-emoji-700.woff') format('woff'), /* Modern Browsers */
+       url('fonts/noto-emoji-v39-emoji-700.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('fonts/noto-emoji-v39-emoji-700.svg#NotoEmoji') format('svg'); /* Legacy iOS */
+}
+
+@font-face {
+    font-family: "Console";
+    src:url("fonts/clacon2.woff2") format("woff2"),
+        url('fonts/clacon2.ttf') format('truetype');
+    }
+:root{
+    scrollbar-face-color: rgba(19, 17, 19, 0.4); /* Firefox 63 compatibility */
+    scrollbar-track-color: rgba(9, 8, 9, 0); /* Firefox 63 compatibility */
+    scrollbar-color: rgba(19, 17, 19, 0.4) rgba(9, 8, 9, 0);
+    scrollbar-width: thin;
+  }
+body, html {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+  span.hide {
+    display: none !important;
+
+
+    transition: all 1s;
+    overflow: hidden;
+    margin: 0 !important;
+    opacity: 0;
+    animation: hide 1s linear 0s forwards;
+  }
+  @keyframes hide {
+    to {
+      
+      /* background-color: white; */
+    }
+  }
+  
+
+html, body {
+    margin: unset;
+    padding: unset;
+    background-color: rgb(9, 8, 9);
+    height: 100%;
+    
+    filter: blur(.002in);
+    /* filter: blur(.3px) ; */
+    
+}
+::-webkit-scrollbar {
+    width: .4rem;
+    height: 0px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(19, 17, 19);
+    background: rgba(19, 17, 19, 0.4);
+    border-radius: 1rem;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(9, 8, 9);
+    background: rgba(9, 8, 9, 0);
+    border-radius: 1rem;
+}
+::selection {
+    color: rgba(9, 8, 9, 0.75);
+    background-color: white;
+    text-shadow: 
+    0 0 2rem rgba(0, 0, 0, 0.2),
+    0 0 .3rem rgba(0, 0, 0, 0.6);
+}
+
+#screen {
+
+    height: 100%;
+    width: 100%;
+    padding-right: 1.25rem;
+    overflow: hidden;
+    box-sizing: border-box;
+    
+    /* filter: blur(.006in) grayscale(100%) brightness(120%); */
+}
+#screen::before {
+   
+}
+#screen::after {
+   
+    
+}
+
+#terminal {
+   
+    
+}
+
+#terminal .message-item {
+    margin: unset;
+    margin-top: .5rem;
+    display: inline;
+    width: 50ch;
+    /* white-space: pre-wrap; */
+}
+#terminal .message-item:last-child:after {
+    content: '█';
+    /* content: '_'; */
+    display: inline-block;
+    left: 0;
+    height: .2rem;
+    z-index: 10;
+    color: white;
+    margin-left: 0.5ch;
+    transition: none;
+    animation: blink .5s step-start infinite;
+}
+@keyframes blink {
+    50% {
+        opacity: 0;
+      }
+}
+@keyframes flicker {
+    
+  }
+  .crt-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2) 40%, rgba(0, 0, 0, 0.4));
+  animation: scan-animation 10s linear infinite;
+}
+
+@keyframes scan-animation {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+.channel {
+    opacity: .25;
+  }
+  
+  .user {
+    opacity: .5;
+  }
+  
+
+  .info {
+    white-space: pre-wrap;
+    display: inline;
+  }
+  
+  #info {
+    max-width: 45rem;
+  }

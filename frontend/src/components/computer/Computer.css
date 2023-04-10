@@ -1,0 +1,33 @@
+html, body {
+    margin: unset;
+    padding: unset;
+    background-color: rgb(9, 8, 9);
+    height: 100%;
+    
+    filter: blur(.002in);
+    /* filter: blur(.3px) ; */
+    
+}
+
+::-webkit-scrollbar {
+    width: .4rem;
+    height: 0px;
+}
+::-webkit-scrollbar-thumb {
+    background: rgb(19, 17, 19);
+    background: rgba(19, 17, 19, 0.4);
+    border-radius: 1rem;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(9, 8, 9);
+    background: rgba(9, 8, 9, 0);
+    border-radius: 1rem;
+}
+::selection {
+    color: rgba(9, 8, 9, 0.75);
+    background-color: white;
+    text-shadow: 
+    0 0 2rem rgba(0, 0, 0, 0.2),
+    0 0 .3rem rgba(0, 0, 0, 0.6);
+}
