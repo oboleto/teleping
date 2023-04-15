@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
-import './computer.css'
-
+import './Computer.css'
 
 export default function Computer() {
-    const [messageQueue, setMessageQueue] = useState([]);
+    let messageQueue = []
     const typing = useRef(false)
     let isDisplayingMessage = false;
     let isAddingToQueue = false;
@@ -44,78 +43,92 @@ export default function Computer() {
         const typingInterval = typingSpeed / message.length;
         let i = 0;
 
-        Array.from(message).forEach((char) => {
-            setTimeout(() => {
-                target.textContent += char;
-            }, i * typingInterval);
-            i++;
-            if (chatRef.current) {
-                chatRef.current.scrollTop = chatRef.current.scrollHeight;
-            }
-        });
+        if (target) {
+            Array.from(message).forEach((char) => {
+                setTimeout(() => {
+                    target.textContent += char;
+                }, i * typingInterval)
+                i++;
+                console.log(chatRef.current)
+                if (chatRef.current) {
+                    chatRef.current.scrollTop = chatRef.current.scrollHeight;
+                }
+            });
+        }
     }
-    
-    
+
 
     function displayNextMessage() {
+        let i = 0
         const chat = document.getElementById('terminal');
+        const infoText = document.getElementById('info')
         if (messageQueue.length === 0) {
             isDisplayingMessage = false;
             return;
         }
 
+        if (infoText) {
+            infoText.remove()
+        }
         const { channel, user, message } = messageQueue.shift();
 
         const item = document.createElement('span');
         item.classList.add('message-item');
-        item.innerHTML = `<span className="channel">${channel}:</span> <span className="user">${user}:</span> <span className="message-text"></span>`;
+        item.innerHTML = `<span className="channel">${channel}:</span> <span className="user">${user}:</span> <span className="message-text">${message}</span>`;
+
         typeMessage(message, item.querySelector('.message-text'), 300);
         setTimeout(() => {
             displayNextMessage();
         }, 500);
-            chat.appendChild(item);
-        setTimeout(() => {
-            item.classList.add('hide');
+        chat.appendChild(item);
             setTimeout(() => {
                 item.remove();
-            }, 61000);
-        }, 60000);
+            }, 6500);
+        function typeWritter() {
+            if (i < message.length) {
+                if (item) {
+                    item.querySelector("message-text").innerHTML += message.charAt(i)
+                    i++
+                    setTimeout(typeWritter, 100)
+                }
+            }
+        }
     }
 
     function connectWebSocket() {
-        const ws = new WebSocket('wss://ws.boletinho.com');
-        // const ws = new WebSocket('ws://localhost:8080');
+        setTimeout(() => {
 
-        ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            // console.log(data);
-            if (!isAddingToQueue) {
-                isAddingToQueue = true;
-                setMessageQueue((prevQueue) => {
-                    const newQueue = [...prevQueue, data];
-                    if (newQueue.length > 100) {
-                        newQueue.shift();
+            const ws = new WebSocket('wss://ws.boletinho.com');
+            // const ws = new WebSocket('ws://localhost:8080');
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                // console.log(data)
+                if (!isAddingToQueue) {
+                    isAddingToQueue = true;
+                    messageQueue.push(data);
+                    if (messageQueue.length > 100) {
+                        messageQueue.shift();
                     }
-                    return newQueue;
-                });
-                if (!isDisplayingMessage) {
-                    isDisplayingMessage = true;
-                    displayNextMessage();
+                    if (!isDisplayingMessage) {
+                        isDisplayingMessage = true;
+                        displayNextMessage();
+                    }
+                    isAddingToQueue = false;
                 }
-                isAddingToQueue = false;
-            }
-        };
+            };
 
-        ws.addEventListener('open', (event) => {
-            console.log('Conexão estabelecida');
-        });
+            ws.addEventListener('open', (event) => {
+                console.log('Conexão estabelecida');
+            });
 
-        ws.addEventListener('close', (event) => {
-            console.log('Conexão encerrada');
-            setTimeout(() => {
-                connectWebSocket();
-            }, 1000);
-        });
+            ws.addEventListener('close', (event) => {
+                console.log('Conexão encerrada');
+                setTimeout(() => {
+                    connectWebSocket();
+                }, 1000);
+            });
+        }, 35000);
     }
 
     useEffect(() => {
