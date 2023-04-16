@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import './Computer.css'
+import Terminal from './Terminal'
+import Screen from './Screen'
+import Info from './Info'
+import Overlay from './Overlay'
 
 export default function Computer() {
     let messageQueue = []
@@ -49,7 +53,6 @@ export default function Computer() {
                     target.textContent += char;
                 }, i * typingInterval)
                 i++;
-                console.log(chatRef.current)
                 if (chatRef.current) {
                     chatRef.current.scrollTop = chatRef.current.scrollHeight;
                 }
@@ -60,7 +63,7 @@ export default function Computer() {
 
     function displayNextMessage() {
         let i = 0
-        const chat = document.getElementById('terminal');
+        const chat = document.getElementById('terminal')
         const infoText = document.getElementById('info')
         if (messageQueue.length === 0) {
             isDisplayingMessage = false;
@@ -68,10 +71,10 @@ export default function Computer() {
         }
 
         if (infoText) {
+            console.log(infoText)
             infoText.remove()
         }
         const { channel, user, message } = messageQueue.shift();
-
         const item = document.createElement('span');
         item.classList.add('message-item');
         item.innerHTML = `<span className="channel">${channel}:</span> <span className="user">${user}:</span> <span className="message-text">${message}</span>`;
@@ -81,29 +84,19 @@ export default function Computer() {
             displayNextMessage();
         }, 500);
         chat.appendChild(item);
-            setTimeout(() => {
-                item.remove();
-            }, 6500);
-        function typeWritter() {
-            if (i < message.length) {
-                if (item) {
-                    item.querySelector("message-text").innerHTML += message.charAt(i)
-                    i++
-                    setTimeout(typeWritter, 100)
-                }
-            }
-        }
+        setTimeout(() => {
+            item.remove();
+        }, 6500);
+
     }
 
     function connectWebSocket() {
         setTimeout(() => {
-
             const ws = new WebSocket('wss://ws.boletinho.com');
             // const ws = new WebSocket('ws://localhost:8080');
 
             ws.onmessage = (event) => {
                 const data = JSON.parse(event.data);
-                // console.log(data)
                 if (!isAddingToQueue) {
                     isAddingToQueue = true;
                     messageQueue.push(data);
@@ -128,7 +121,7 @@ export default function Computer() {
                     connectWebSocket();
                 }, 1000);
             });
-        }, 35000);
+        }, 38000);
     }
 
     useEffect(() => {
@@ -160,14 +153,9 @@ export default function Computer() {
     }, []);
 
     return (
-        <div>
-            <div className="crt-overlay"></div>
-            <div id="screen">
-                <div id="terminal">
-                    <div id="info"></div>
-                </div>
-            </div>
+        <div className='wrapper'>
+            <Overlay />
+            <Screen />
         </div>
     )
-
 }
